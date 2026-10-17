@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="mr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#1f4b43">
+<title>फॅन्सी ड्रेस स्पर्धा | Judging Portal</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--g:#1f4b43;--gold:#c9a227;--bg:#f5f2e9;--line:#dfe5de}
+*{box-sizing:border-box}body{margin:0;font:16px system-ui,"Noto Sans Devanagari",sans-serif;background:var(--bg);color:#202b26}
+header{background:var(--g);color:white;padding:22px 5%;border-bottom:4px solid var(--gold)}main{max-width:1000px;margin:24px auto;padding:0 16px}
+.card{background:white;border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:16px}
+h1{font-size:clamp(1.3rem,3vw,2rem);margin:0}h2{margin:0 0 12px}p{line-height:1.6}
+input,select,button{width:100%;padding:12px;border-radius:10px;border:1px solid #bdcfc2;font:inherit}
+button{background:var(--g);color:white;border:0;font-weight:700;margin-top:12px;cursor:pointer}
+.muted{color:#65736b}.hidden{display:none!important}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.notice{padding:12px;background:#edf4ee;border-radius:10px;margin-bottom:14px}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.card{padding:15px}}
+</style>
+</head>
+<body>
+<header><h1>🏆 फॅन्सी ड्रेस स्पर्धा — परीक्षक पोर्टल</h1><p>१०० सहभागी • ३ परीक्षक • एकूण १२० गुण</p></header>
+<main>
+<div id="status" class="notice">पोर्टल सुरू होत आहे…</div>
+<section id="login" class="card"><h2>सुरक्षित लॉगिन</h2><p class="muted">समन्वयक किंवा परीक्षकाचा नोंदणीकृत ईमेल पत्ता टाका. लॉगिन कोड ईमेलवर पाठवला जाईल.</p>
+<label for="email">ईमेल पत्ता</label><input id="email" type="email" autocomplete="email" placeholder="name@example.com">
+<button id="send">ईमेलवर लॉगिन कोड पाठवा</button>
+<div id="verify" class="hidden"><label for="otp">ईमेलवरील कोड</label><input id="otp" inputmode="numeric" autocomplete="one-time-code" maxlength="6"><button id="confirm">लॉगिन करा</button></div></section>
+<section id="app" class="hidden"><div class="card"><h2 id="welcome">डॅशबोर्ड</h2><p id="role" class="muted"></p><button id="logout">लॉगआउट</button></div>
+<div id="judge" class="card hidden"><h2>गुणांकन</h2><label for="participant">सहभागी</label><select id="participant"></select>
+<div class="grid"><div><label for="theme">निवडलेला विषय (०–१०)</label><select id="theme" class="score"></select></div><div><label for="effort">तयारी / मेहनत (०–१०)</label><select id="effort" class="score"></select></div><div><label for="confidence">आत्मविश्वास (०–१०)</label><select id="confidence" class="score"></select></div><div><label for="walk">चाल (रॅम्प वॉक) (०–१०)</label><select id="walk" class="score"></select></div></div><button id="save">गुण जतन करा</button></div>
+<div id="coordinator" class="card hidden"><h2>सहभागी नावे व अंतिम निकाल</h2><p class="muted">समन्वयकाला नावे संपादित करता येतील. अंतिम निकाल फक्त समन्वयकाला दिसेल.</p><div id="names"></div><button id="saveNames">नावे जतन करा</button><div id="results"></div></div></section>
+</main>
+<script src="./app.js"></script>
+</body></html>
