@@ -11,11 +11,11 @@ async function start(){
  if(error||!u){msg("या ईमेलला भूमिका दिलेली नाही. समन्वयकाने वापरकर्त्याची भूमिका नोंदवावी.",true);await db.auth.signOut();return}
  role=u.role;const [{data:p,error:pe},{data:c,error:ce}]=await Promise.all([db.from("fdj_participants").select("id,participant_name,age,category_id").order("id"),db.from("fdj_categories").select("id,name,min_age,max_age").order("min_age")]);
  if(pe||ce){msg((pe||ce).message,true);return}people=p||[];categories=c||[];$("login").classList.add("hidden");$("app").classList.remove("hidden");
- $("welcome").textContent="नमस्कार, "+(({judge1:"Deshmukh",judge2:"Ubale",judge3:"Kavi",coordinator:"Admin"})[role]||"वापरकर्ता");$("role").textContent="भूमिका: "+roleName(role);
+ $("welcome").textContent="नमस्कार, "+(({judge1:"Deshmukh madam",judge2:"Ubale madam",judge3:"Kavi sir",coordinator:"Admin"})[role]||"वापरकर्ता");$("role").textContent="भूमिका: "+roleName(role);
  $("judge").classList.toggle("hidden",!role.startsWith("judge"));$("coordinator").classList.toggle("hidden",role!=="coordinator");
  if(role.startsWith("judge")){drawSelect();await ownScores()}if(role==="coordinator"){initAgeSelectors();drawCategories();drawNames();await results()}msg("लॉगिन यशस्वी.");
 }
-const accounts={judge01:{email:"judge01@fancydress.local",name:"Deshmukh"},judge02:{email:"judge02@fancydress.local",name:"Ubale"},judge03:{email:"judge03@fancydress.local",name:"Kavi"},admin:{email:"admin@fancydress.local",name:"Admin"}};
+const accounts={judge01:{email:"judge01@fancydress.local",name:"Deshmukh madam"},judge02:{email:"judge02@fancydress.local",name:"Ubale madam"},judge03:{email:"judge03@fancydress.local",name:"Kavi sir"},admin:{email:"admin@fancydress.local",name:"Admin"}};
 $("togglePassword").onclick=()=>{const p=$("password"),show=p.type==="password";p.type=show?"text":"password";$("togglePassword").textContent=show?"🙈":"👁"};
 document.querySelectorAll(".admin-tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".admin-tab").forEach(x=>x.classList.toggle("active",x===b));["registrationPanel","rankingPanel","winnersPanel"].forEach(id=>$(id).classList.toggle("hidden",id!==b.dataset.tab))});
 $("loginBtn").onclick=async()=>{const id=$("username").value.trim().toLowerCase(),password=$("password").value;const account=accounts[id];if(!account||!password)return msg("योग्य User ID आणि Password टाका.",true);$("loginBtn").disabled=true;msg("लॉगिन तपासत आहे...");try{const {error}=await db.auth.signInWithPassword({email:account.email,password});if(error){msg("लॉगिन अयशस्वी: "+error.message,true);return}sessionStorage.setItem("fdj_username",id);await start()}catch(e){msg("लॉगिन त्रुटी: "+(e?.message||"पुन्हा प्रयत्न करा."),true)}finally{$("loginBtn").disabled=false}};
