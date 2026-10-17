@@ -22,10 +22,10 @@ button{background:var(--g);color:white;border:0;font-weight:700;margin-top:12px;
 <header><h1>🏆 फॅन्सी ड्रेस स्पर्धा — परीक्षक पोर्टल</h1><p>१०० सहभागी • ३ परीक्षक • एकूण १२० गुण</p></header>
 <main>
 <div id="status" class="notice">पोर्टल सुरू होत आहे…</div>
-<section id="login" class="card"><h2>सुरक्षित लॉगिन</h2><p class="muted">समन्वयक किंवा परीक्षकाचा नोंदणीकृत ईमेल पत्ता टाका. लॉगिन कोड ईमेलवर पाठवला जाईल.</p>
-<label for="email">ईमेल पत्ता</label><input id="email" type="email" autocomplete="email" placeholder="name@example.com">
-<button id="send">ईमेलवर लॉगिन कोड पाठवा</button>
-<div id="verify" class="hidden"><label for="otp">ईमेलवरील कोड</label><input id="otp" inputmode="numeric" autocomplete="one-time-code" maxlength="6"><button id="confirm">लॉगिन करा</button></div></section>
+<section id="login" class="card"><h2>लॉगिन</h2><p class="muted">आपला User ID आणि Password टाका.</p>
+<label for="username">User ID</label><input id="username" autocomplete="username" placeholder="judge01 / judge02 / judge03 / admin">
+<label for="password">Password</label><input id="password" type="password" autocomplete="current-password" placeholder="Password">
+<button id="loginBtn">लॉगिन करा</button></section>
 <section id="app" class="hidden"><div class="card"><h2 id="welcome">डॅशबोर्ड</h2><p id="role" class="muted"></p><button id="logout">लॉगआउट</button></div>
 <div id="judge" class="card hidden"><h2>गुणांकन</h2><label for="participant">सहभागी</label><select id="participant"></select>
 <div class="grid"><div><label for="theme">निवडलेला विषय (०–१०)</label><select id="theme" class="score"></select></div><div><label for="effort">तयारी / मेहनत (०–१०)</label><select id="effort" class="score"></select></div><div><label for="confidence">आत्मविश्वास (०–१०)</label><select id="confidence" class="score"></select></div><div><label for="walk">चाल (रॅम्प वॉक) (०–१०)</label><select id="walk" class="score"></select></div></div><button id="save">गुण जतन करा</button></div>
