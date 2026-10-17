@@ -29,7 +29,7 @@ button{background:var(--g);color:white;border:0;font-weight:700;margin-top:12px;
 <section id="app" class="hidden"><div class="card"><h2 id="welcome">डॅशबोर्ड</h2><p id="role" class="muted"></p><button id="logout">लॉगआउट</button></div>
 <div id="judge" class="card hidden"><h2>गुणांकन</h2><label for="participant">सहभागी</label><select id="participant"></select>
 <div class="grid"><div><label for="theme">निवडलेला विषय (०–१०)</label><select id="theme" class="score"></select></div><div><label for="effort">तयारी / मेहनत (०–१०)</label><select id="effort" class="score"></select></div><div><label for="confidence">आत्मविश्वास (०–१०)</label><select id="confidence" class="score"></select></div><div><label for="walk">चाल (रॅम्प वॉक) (०–१०)</label><select id="walk" class="score"></select></div></div><button id="save">गुण जतन करा</button></div>
-<div id="coordinator" class="card hidden"><h2>सहभागी नावे व अंतिम निकाल</h2><p class="muted">समन्वयकाला नावे संपादित करता येतील. अंतिम निकाल फक्त समन्वयकाला दिसेल.</p><div id="names"></div><button id="saveNames">नावे जतन करा</button><div id="results"></div></div></section>
+<div id="coordinator" class="card hidden"><h2>सहभागी नावे व अंतिम निकाल</h2><p class="muted">समन्वयकाला नावे संपादित करता येतील. अंतिम निकाल फक्त समन्वयकाला दिसेल.</p><div class="card"><h3>वयोगट तयार करा</h3><div class="grid"><div><label for="minAge">किमान वय</label><select id="minAge"></select></div><div><label for="maxAge">कमाल वय</label><select id="maxAge"></select></div></div><button id="createGroup">वयोगट तयार करा</button><div id="categoryList"></div></div><h3>सहभागींची नावे व वय</h3><div id="names"></div><button id="saveNames">नावे व वय जतन करा</button><h3>वयोगटनिहाय Top 5 विजेते</h3><div id="winners"></div><h3>सर्व निकाल</h3><div id="results"></div></div></section>
 </main>
-<script src="./app.js?v=4"></script>
+<script src="./app.js?v=5"></script>
 </body></html>
