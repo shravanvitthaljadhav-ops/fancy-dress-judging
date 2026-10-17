@@ -6,7 +6,7 @@ function safe(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&
 function roleName(r){return ({coordinator:"समन्वयक",judge1:"परीक्षक १",judge2:"परीक्षक २",judge3:"परीक्षक ३"})[r]||r}
 async function start(){
  const {data:{user}}=await db.auth.getUser();
- if(!user){$("login").classList.remove("hidden");$("app").classList.add("hidden");return}
+ if(!user){$("login").classList.remove("hidden");$("app").classList.add("hidden");msg("User ID आणि Password वापरून लॉगिन करा.");return}
  const {data:u,error}=await db.from("fdj_users").select("role,email").eq("user_id",user.id).maybeSingle();
  if(error||!u){msg("या ईमेलला भूमिका दिलेली नाही. समन्वयकाने वापरकर्त्याची भूमिका नोंदवावी.",true);await db.auth.signOut();return}
  role=u.role;const {data:p,error:pe}=await db.from("fdj_participants").select("id,participant_name").order("id");
@@ -16,7 +16,7 @@ async function start(){
  if(role.startsWith("judge")){drawSelect();await ownScores()}if(role==="coordinator"){drawNames();await results()}msg("लॉगिन यशस्वी.");
 }
 const accounts={judge01:{email:"judge01@fancydress.local",name:"Deshmukh"},judge02:{email:"judge02@fancydress.local",name:"Ubale"},judge03:{email:"judge03@fancydress.local",name:"Kavi"},admin:{email:"admin@fancydress.local",name:"Admin"}};
-$("loginBtn").onclick=async()=>{const id=$("username").value.trim().toLowerCase(),password=$("password").value;const account=accounts[id];if(!account||!password)return msg("योग्य User ID आणि Password टाका.",true);$("loginBtn").disabled=true;const {error}=await db.auth.signInWithPassword({email:account.email,password});$("loginBtn").disabled=false;if(error)return msg("लॉगिन अयशस्वी. User ID आणि Password तपासा.",true);sessionStorage.setItem("fdj_username",id);await start()};
+$("loginBtn").onclick=async()=>{const id=$("username").value.trim().toLowerCase(),password=$("password").value;const account=accounts[id];if(!account||!password)return msg("योग्य User ID आणि Password टाका.",true);$("loginBtn").disabled=true;msg("लॉगिन तपासत आहे...");try{const {error}=await db.auth.signInWithPassword({email:account.email,password});if(error){msg("लॉगिन अयशस्वी: "+error.message,true);return}sessionStorage.setItem("fdj_username",id);await start()}catch(e){msg("लॉगिन त्रुटी: "+(e?.message||"पुन्हा प्रयत्न करा."),true)}finally{$("loginBtn").disabled=false}};
 $("logout").onclick=async()=>{await db.auth.signOut();role="";$("app").classList.add("hidden");$("login").classList.remove("hidden");msg("लॉगआउट झाले.")};
 document.querySelectorAll(".score").forEach(e=>e.innerHTML='<option value="">गुण निवडा</option>'+Array.from({length:11},(_,i)=>'<option>'+i+"</option>").join(""));
 function drawSelect(){$("participant").innerHTML=people.map(p=>'<option value="'+p.id+'">'+p.id+" — "+safe(p.participant_name||"नाव नाही")+"</option>").join("");$("participant").onchange=fill}
