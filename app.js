@@ -21,7 +21,7 @@ document.querySelectorAll(".admin-tab").forEach(b=>b.onclick=()=>{document.query
 $("loginBtn").onclick=async()=>{const id=$("username").value.trim().toLowerCase(),password=$("password").value;const account=accounts[id];if(!account||!password)return msg("योग्य User ID आणि Password टाका.",true);$("loginBtn").disabled=true;msg("लॉगिन तपासत आहे...");try{const {error}=await db.auth.signInWithPassword({email:account.email,password});if(error){msg("लॉगिन अयशस्वी: "+error.message,true);return}sessionStorage.setItem("fdj_username",id);await start()}catch(e){msg("लॉगिन त्रुटी: "+(e?.message||"पुन्हा प्रयत्न करा."),true)}finally{$("loginBtn").disabled=false}};
 $("logout").onclick=async()=>{await db.auth.signOut();role="";$("app").classList.add("hidden");$("login").classList.remove("hidden");msg("लॉगआउट झाले.")};
 buildScoreScales();
-function drawSelect(){$("participant").innerHTML=people.map(p=>'<option value="'+p.id+'">'+String(p.id)+"</option>").join("");$("participant").onchange=fill}
+function drawSelect(){$("participant").replaceChildren(...people.map(p=>{const option=document.createElement("option");option.value=String(p.id);option.textContent=String(p.id);return option}));$("participant").onchange=fill}
 async function ownScores(){const {data,error}=await db.from("fdj_scores").select("*").eq("judge_role",role);if(error)return msg(error.message,true);scores=data||[];fill()}
 function setScore(id,value){document.querySelectorAll("#"+id+"Scale .score-btn").forEach(b=>{const selected=String(b.dataset.value)===String(value);b.classList.toggle("selected",selected);b.setAttribute("aria-pressed",selected?"true":"false")})}
 function selectedScore(id){return document.querySelector("#"+id+"Scale .score-btn.selected")?.dataset.value||""}
